@@ -90,16 +90,16 @@ Container.prototype.newObject = function(name) {
       throw new Error('didn\'t specify a bound object name as a string');
   }
 
-  //manage circular depenancies
+  //manage circular dependencies
   var circleBreaker = {};
 
-  //track how we got to a circular dependancy (in order to log errors)
+  //track how we got to a circular dependency (in order to log errors)
   var circleChain = [];
 
-  //know whether a dependancy has already been satisfied
+  //know whether a dependency has already been satisfied
   var satisfiedDeps = {};
 
-  //keep track of other dependancies that are yet to be satisfied
+  //keep track of other dependencies that are yet to be satisfied
   var promisesForName = {};
 
   //generic utility variables
@@ -125,11 +125,11 @@ Container.prototype.newObject = function(name) {
   catch(err) {
     switch(err.message) {
       case 'circle': {
-        throw new Error('A circular set of dependancies was formed: '+circleChain.join('->')+ '->'+ err.depName);
+        throw new Error('A circular set of dependencies was formed: '+circleChain.join('->')+ '->'+ err.depName);
       } break;
 
       case 'notfound': {
-        throw new Error('A depandancy named "'+ err.depName + '" was used without being bound from (' + circleChain.join('->') + ')')
+        throw new Error('A dependency named "'+ err.depName + '" was used without being bound from (' + circleChain.join('->') + ')')
       } break;
     }
 
@@ -146,11 +146,11 @@ function wrapInnerGet(self, name, circleBreaker, circleChain, satisfiedDeps, pro
   catch(err) {
     switch(err.message) {
       case 'circle': {
-        throw new Error('A circular set of dependancies was formed: '+circleChain.join('->')+ '->'+ err.depName);
+        throw new Error('A circular set of dependencies was formed: '+circleChain.join('->')+ '->'+ err.depName);
       } break;
 
       case 'notfound': {
-        throw new Error('A depandancy named "'+ err.depName + '" was used without being bound from (' + circleChain.join('->') + ')')
+        throw new Error('A dependency named "'+ err.depName + '" was used without being bound from (' + circleChain.join('->') + ')')
       } break;
     }
 
