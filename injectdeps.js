@@ -199,11 +199,11 @@ function innerGet(self, name, circleBreaker, circleChain, satisfiedDeps, promise
   circleBreaker[name] = true;
   circleChain.push(name);
 
-  //for each dependancy, satisfy it first
+  //for each dependency, satisfy it first
   deps = self.available[name].deps;
 
   for(i = 0, len = deps.length; i < len; i++) {
-    //handle if the specified dependancy is the injector itself
+    //handle if the specified dependency is the injector itself
     if(self.available[deps[i]] === self) {
       resolvedDeps.push({
         getObject: (innerName) => {
@@ -229,7 +229,7 @@ function innerGet(self, name, circleBreaker, circleChain, satisfiedDeps, promise
 
   satisfiedDeps[name] = obj;
 
-  //if this dependancy is promised to other ones, resolve each with our obj
+  //if this dependency is promised to other ones, resolve each with our obj
   if(promisesForName.hasOwnProperty(name)) {
     for(i = 0, len = promisesForName[name].length; i< len; i++) {
       promisesForName[name][i](obj);
